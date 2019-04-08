@@ -307,4 +307,39 @@ $(function () {
 	//
 	// top-tracks item info ... end;
 	//
+
+	//
+	// custom dropdowns by id
+	//
+
+	var $customDrops = $('.custom-dropdown');
+	var $customDropsBtns = $('.custom-dropdown-toggler');
+
+	$customDropsBtns.on('click', function(e){
+		e.preventDefault();
+		var $this = $(this);
+		var target = $this.data('target');
+
+		$customDrops.not('#' + target).removeClass('active');
+		$customDropsBtns.not($this).removeClass('active');
+		$this.toggleClass('active');
+		$('#' + target).toggleClass('active');
+	});
+
+	$(document).on('click', function(e){
+		if ( !$customDrops.is(e.target) && $customDrops.has(e.target).length === 0 && !$customDropsBtns.is(e.target) && $customDropsBtns.has(e.target).length === 0  ) { 
+			$customDrops.removeClass('active');
+			$customDropsBtns.removeClass('active');
+		} 
+	});
+
+	$('.dropdown').on('show.bs.dropdown', function () {
+		$customDrops.removeClass('active');
+		$customDropsBtns.removeClass('active');
+	});
+
+	//
+	// custom dropdowns by id ... end;
+	//
+
 });
